@@ -12,10 +12,11 @@ h2 {
 }
 .menu-item {
 	width: 50%;
-	float:left;
-	clear:none;
+	float: left;
+	clear: none;
 }
 .menu-button {
 	width:100%;
 	float: left;
+	clear: none;
 }
