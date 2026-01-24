@@ -1,13 +1,13 @@
 // JavaScript Document
 
-const usersForm = document.getElementById('users');
-const aboutmeForm = document.getElementById('aboutme');
-const domainsForm = document.getElementById('domains');
-const logoutForm = document.getElementById('logout');
+const accountsForm = document.getElementById('accounts-form');
+const aboutmeForm = document.getElementById('aboutme-form');
+const domainsForm = document.getElementById('domains-form');
+const logoutForm = document.getElementById('logout-form');
 
-usersForm.addEventListener('submit', async (e) => {
+accountsForm.addEventListener('submit', async (e) => {
 	e.preventDefault();
-	window.open("users.html","_self");
+	window.open("accounts.html","_self");
 });
 
 aboutmeForm.addEventListener('submit', async (e) => {
