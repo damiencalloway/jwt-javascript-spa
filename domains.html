@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Domain Management</h1>
+            <div>
+                <a href="mainmenu.html" class="btn btn-secondary">Main Menu</a>
+                <a href="accounts.html" class="btn btn-secondary">Manage Accounts</a>
+                <a href="hosts.html" class="btn btn-secondary">About Me</a>
+                <button id="refresh-domains-btn" class="btn btn-info">Refresh Domains</button>
+                <button id="logout-btn" class="btn btn-danger">Logout</button>
+            </div>
+        </div>
+
+        <!-- Form for Adding and Editing Domains -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title" id="form-title">Add Domain</h5>
+                <form id="domain-form">
+                    <input type="hidden" id="domain-id">
+                    <div class="row">
+                        <div class="col-md-5 mb-3">
+                            <label for="domain" class="form-label">Domain</label>
+                            <input type="text" class="form-control" id="domain" placeholder="e.g., example" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="tld" class="form-label">TLD</label>
+                            <input type="text" class="form-control" id="tld" placeholder="e.g., com" required>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end mb-3">
+                            <button type="submit" class="btn btn-primary w-100">Save</button>
+                        </div>
+                    </div>
+                     <button type="button" class="btn btn-light mt-2" id="cancel-btn" style="display: none;">Cancel Edit</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Table to Display Domains -->
+        <div class="card">
+             <div class="card-body">
+                <h5 class="card-title">Registered Domains</h5>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Full Domain</th>
+                            <th>Domain</th>
+                            <th>TLD</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="domains-table-body">
+                        <!-- Domain rows will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="domains.js"></script>
+</body>
+</html>
