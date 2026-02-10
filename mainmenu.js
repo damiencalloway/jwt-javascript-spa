@@ -22,5 +22,6 @@ domainsForm.addEventListener('submit', async (e) => {
 
 logoutForm.addEventListener('submit', async (e) => {
 	e.preventDefault();
-	window.open("logout.html","_self");
+	localStorage.removeItem('jwt');
+	window.open("index.html","_self");
 });
