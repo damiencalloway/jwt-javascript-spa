@@ -19,3 +19,4 @@
 ## Development Environment
 - **Backend Dependency:** Requires a REST API (typically running locally on port 3000) for authentication and data management.
 - **Local Serving:** Static files should be served via a local web server (e.g., Python's `http.server` or Node's `http-server`) to handle `fetch` requests and relative paths correctly.
+- **Testing Framework:** Jest with `jsdom` environment used for TDD and unit testing of DOM-dependent logic.

@@ -15,6 +15,7 @@ The project is a client-side web application designed to demonstrate JWT authent
 
 ## Key Features (MVP)
 - **Identity Management:** Full user registration and login flow with secure JWT storage in `localStorage`.
+- **Secure Logout:** Robust session termination that clears authentication state and redirects to the entry point.
 - **Navigation Dashboard:** A central main menu for easy access to different management modules.
 - **Domain & Account CRUD:** Functional interfaces to Create, Read, Update, and Delete account and domain information.
 
