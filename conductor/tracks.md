@@ -4,5 +4,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [ ] **Track: Implement secure Logout functionality and session cleanup**
+- [~] **Track: Implement secure Logout functionality and session cleanup**
   *Link: [./tracks/logout_20260205/](./tracks/logout_20260205/)*
