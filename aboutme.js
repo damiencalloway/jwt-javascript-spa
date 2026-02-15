@@ -1,4 +1,5 @@
 const logoutBtn = document.getElementById('logout-btn');
+const refreshBtn = document.getElementById('refresh-domains-btn');
 
 if (logoutBtn) {
     logoutBtn.addEventListener('click', (e) => {
@@ -8,15 +9,19 @@ if (logoutBtn) {
     });
 }
 
+if (refreshBtn) {
+    refreshBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        fetchProfile();
+    });
+}
+
 async function fetchProfile() {
     const jwt = localStorage.getItem('jwt');
     const errorEl = document.getElementById('profile-error');
     
     if (!jwt) {
-        if (errorEl) {
-            errorEl.textContent = 'Error: No authentication token found. Please login.';
-            errorEl.classList.remove('d-none');
-        }
+        window.open("index.html", "_self");
         return;
     }
 

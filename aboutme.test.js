@@ -94,4 +94,41 @@ describe('aboutme.js', () => {
     expect(errorEl.classList.contains('d-none')).toBe(false);
     expect(errorEl.textContent).toContain('Error');
   });
+
+  test('Redirects to index.html if JWT is missing', () => {
+    // Setup
+    localStorage.removeItem('jwt');
+
+    // Execute script
+    eval(script);
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    // Assertions
+    expect(window.open).toHaveBeenCalledWith('index.html', '_self');
+  });
+
+  test('Refresh button triggers fetchProfile', async () => {
+    // Setup
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({ id: 1, username: 'u', email: 'e' }),
+      })
+    );
+    localStorage.setItem('jwt', 'valid-token');
+
+    // Execute script
+    eval(script);
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    // Reset fetch mock to track calls from button click
+    global.fetch.mockClear();
+
+    // Find and click refresh button
+    const refreshBtn = document.getElementById('refresh-domains-btn');
+    refreshBtn.click();
+
+    // Assertions
+    expect(global.fetch).toHaveBeenCalled();
+  });
 });
