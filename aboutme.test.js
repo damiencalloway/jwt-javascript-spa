@@ -34,4 +34,64 @@ describe('aboutme.js', () => {
     expect(document.getElementById('profile-email')).not.toBeNull();
     expect(document.getElementById('profile-error')).not.toBeNull();
   });
+
+  test('Fetches profile data and updates DOM on success', async () => {
+    // Setup
+    const mockProfile = {
+      id: 123,
+      username: 'testuser',
+      email: 'test@example.com'
+    };
+    
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockProfile),
+      })
+    );
+
+    localStorage.setItem('jwt', 'valid-token');
+
+    // Execute script
+    eval(script);
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    // Wait for async operations
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    // Assertions
+    expect(global.fetch).toHaveBeenCalledWith('http://localhost:3000/profile', expect.objectContaining({
+      headers: expect.objectContaining({
+        'Authorization': 'Bearer valid-token'
+      })
+    }));
+
+    expect(document.getElementById('profile-id').textContent).toBe('123');
+    expect(document.getElementById('profile-username').textContent).toBe('testuser');
+    expect(document.getElementById('profile-email').textContent).toBe('test@example.com');
+  });
+
+  test('Displays error message on fetch failure', async () => {
+    // Setup
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        ok: false,
+        status: 401
+      })
+    );
+
+    localStorage.setItem('jwt', 'invalid-token');
+
+    // Execute script
+    eval(script);
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    // Wait for async operations
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    // Assertions
+    const errorEl = document.getElementById('profile-error');
+    expect(errorEl.classList.contains('d-none')).toBe(false);
+    expect(errorEl.textContent).toContain('Error');
+  });
 });
