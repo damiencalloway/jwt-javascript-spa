@@ -24,10 +24,10 @@ This plan outlines the steps to add a JWT display card and copy-to-clipboard fun
 - [x] Task: Implement `displayJWT()` function in `aboutme.js` a6c1ccf
     - [ ] Retrieve JWT from `localStorage`
     - [ ] Update the DOM element with the token string
-- [ ] Task: Write failing tests for Copy to Clipboard functionality
+- [x] Task: Write failing tests for Copy to Clipboard functionality ed58adf
     - [ ] Test that `navigator.clipboard.writeText` is called with the correct token
     - [ ] Test that the button text changes to "Copied!" temporarily
-- [ ] Task: Implement Copy to Clipboard logic in `aboutme.js`
+- [x] Task: Implement Copy to Clipboard logic in `aboutme.js` ed58adf
     - [ ] Add event listener to the copy button
     - [ ] Use Clipboard API to copy the text
     - [ ] Implement visual feedback for the user
