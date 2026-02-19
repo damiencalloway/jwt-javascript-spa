@@ -7,7 +7,7 @@ This plan outlines the steps to add a JWT display card and copy-to-clipboard fun
 - [x] Task: Conductor - User Manual Verification 'Setup and Testing Infrastructure' (Protocol in workflow.md)
 
 ## Phase 2: HTML/CSS Enhancements
-- [ ] Task: Update `aboutme.html` to include the JWT display card structure
+- [~] Task: Update `aboutme.html` to include the JWT display card structure
     - [ ] Add a new card div below the profile information card
     - [ ] Add a heading "Your Authentication Token (JWT)"
     - [ ] Add a container for the JWT string with code styling
