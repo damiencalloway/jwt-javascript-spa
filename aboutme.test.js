@@ -44,6 +44,23 @@ describe('aboutme.js', () => {
     expect(document.getElementById('copy-jwt-btn')).not.toBeNull();
   });
 
+  test('Retrieves JWT from localStorage and displays it in the DOM', async () => {
+    // Setup
+    const testToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.test.payload';
+    localStorage.setItem('jwt', testToken);
+    
+    // Execute script
+    eval(script);
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+
+    // Wait for async operations (if any, though displayJWT might be sync)
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    // Assertions
+    const jwtDisplay = document.getElementById('jwt-display');
+    expect(jwtDisplay.textContent).toBe(testToken);
+  });
+
   test('Fetches profile data and updates DOM on success', async () => {
     // Setup
     const mockProfile = {

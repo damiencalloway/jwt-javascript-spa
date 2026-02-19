@@ -25,6 +25,8 @@ async function fetchProfile() {
         return;
     }
 
+    displayJWT(jwt);
+
     try {
         const response = await fetch('http://localhost:3000/profile', {
             headers: {
@@ -48,6 +50,13 @@ async function fetchProfile() {
             errorEl.textContent = 'Error: Connection failed. Please try again later.';
             errorEl.classList.remove('d-none');
         }
+    }
+}
+
+function displayJWT(jwt) {
+    const jwtDisplay = document.getElementById('jwt-display');
+    if (jwtDisplay) {
+        jwtDisplay.textContent = jwt;
     }
 }
 
