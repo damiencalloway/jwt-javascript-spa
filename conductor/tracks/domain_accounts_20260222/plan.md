@@ -1,7 +1,7 @@
 # Implementation Plan: Domain Accounts CRUD
 
 ## Phase 1: Foundation and Domain Selection
-- [ ] Task: Create initial test file `accounts.test.js` with basic setup and mocks.
+- [x] Task: Create initial test file `accounts.test.js` with basic setup and mocks. ff54e0d
 - [ ] Task: Implement Domain fetch logic and populate the Bootstrap dropdown in `accounts.js`.
 - [ ] Task: Implement Domain selection change handler to store the current `domain_id`.
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Foundation and Domain Selection' (Protocol in workflow.md)
