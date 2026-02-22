@@ -252,4 +252,70 @@ describe('accounts.js', () => {
     );
     expect(getAccountCalls.length).toBeGreaterThanOrEqual(1);
   });
+
+  test('Clicking Edit populates the form and handles PUT', async () => {
+    const mockDomains = [{ id: 1, domain: 'example', tld: 'com' }];
+    const mockAccounts = [{ id: 10, username: 'user1', email: 'user1@example.com' }];
+    
+    global.fetch = jest.fn()
+      .mockImplementation((url, options) => {
+        if (url.endsWith('/domains')) {
+          return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(mockDomains) });
+        }
+        if (url.includes('/accounts/10') && options?.method === 'PUT') {
+          return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve({ id: 10, username: 'updated' }) });
+        }
+        if (url.includes('/accounts/10') && (!options?.method || options.method === 'GET')) {
+            return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(mockAccounts[0]) });
+        }
+        if (url.includes('/accounts') && (!options?.method || options.method === 'GET')) {
+          return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(mockAccounts) });
+        }
+        return Promise.reject(new Error(`Unknown URL: ${url} [${options?.method || 'GET'}]`));
+      });
+
+    // Execute script
+    eval(script);
+    
+    // Trigger DOMContentLoaded
+    const event = new Event('DOMContentLoaded');
+    document.dispatchEvent(event);
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    // Select domain
+    const dropdown = document.getElementById('domain-select');
+    dropdown.value = '1';
+    dropdown.dispatchEvent(new Event('change'));
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    // Find and click Edit button
+    const editBtn = document.querySelector('.edit-btn');
+    editBtn.click();
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    // Verify form is populated
+    expect(document.getElementById('username').value).toBe('user1');
+    expect(document.getElementById('email').value).toBe('user1@example.com');
+    expect(document.getElementById('form-title').textContent).toBe('Edit Account');
+
+    // Update value and submit
+    document.getElementById('username').value = 'updated';
+    
+    // Clear mock to count PUT
+    global.fetch.mockClear();
+
+    const form = document.getElementById('account-creation-form');
+    form.dispatchEvent(new Event('submit'));
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    // Verify PUT was called
+    expect(global.fetch).toHaveBeenCalledWith(
+      expect.stringContaining('/domains/1/accounts/10'),
+      expect.objectContaining({ method: 'PUT' })
+    );
+  });
 });
