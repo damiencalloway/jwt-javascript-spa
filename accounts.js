@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- DOM Elements ---
     const domainSelect = document.getElementById('domain-select');
+    const accountsContainer = document.getElementById('accounts-container');
+    const accountsTableBody = document.getElementById('accounts-table-body');
     const logoutBtn = document.getElementById('logout-btn');
 
     // --- Functions ---
@@ -54,7 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fetch accounts for the selected domain
     const fetchAccounts = async () => {
-        if (!currentDomainId) return;
+        if (!currentDomainId) {
+            accountsContainer.style.display = 'none';
+            return;
+        }
 
         try {
             const response = await fetch(`${DOMAINS_API_URL}/${currentDomainId}/accounts`, { 
@@ -68,11 +73,29 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error('Failed to fetch accounts.');
 
             const accounts = await response.json();
-            console.log('Accounts:', accounts);
-            // Rendering will be implemented in the next phase
+            renderAccounts(accounts);
         } catch (error) {
             console.error('Error:', error);
         }
+    };
+
+    // Render accounts table
+    const renderAccounts = (accounts) => {
+        accountsTableBody.innerHTML = '';
+        accounts.forEach(account => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${account.id}</td>
+                <td>${account.username}</td>
+                <td>${account.email}</td>
+                <td class="text-end">
+                    <button class="btn btn-sm btn-warning edit-btn" data-id="${account.id}">Edit</button>
+                    <button class="btn btn-sm btn-danger delete-btn" data-id="${account.id}">Delete</button>
+                </td>
+            `;
+            accountsTableBody.appendChild(row);
+        });
+        accountsContainer.style.display = 'block';
     };
 
     // --- Event Listeners ---
@@ -80,12 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle domain selection change
     domainSelect.addEventListener('change', (e) => {
         currentDomainId = e.target.value;
-        if (currentDomainId) {
-            fetchAccounts();
-        } else {
-            // Clear accounts list if no domain selected
-            // This will be implemented in the next phase
-        }
+        fetchAccounts();
     });
 
     // Handle logout

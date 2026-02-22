@@ -102,22 +102,31 @@ describe('accounts.js', () => {
   });
 
   test('Renders accounts table when domain is selected', async () => {
+    const mockDomains = [{ id: 1, domain: 'example', tld: 'com' }];
     const mockAccounts = [
       { id: 10, username: 'user1', email: 'user1@example.com' },
       { id: 11, username: 'user2', email: 'user2@example.com' }
     ];
 
-    // Mock domains first
+    // Reset fetch for this test
     global.fetch = jest.fn()
-      .mockImplementationOnce(() => Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve([{ id: 1, domain: 'example', tld: 'com' }]),
-      }))
-      // Mock accounts second
-      .mockImplementationOnce(() => Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve(mockAccounts),
-      }));
+      .mockImplementation((url) => {
+        if (url.endsWith('/domains')) {
+          return Promise.resolve({
+            ok: true,
+            status: 200,
+            json: () => Promise.resolve(mockDomains),
+          });
+        }
+        if (url.includes('/accounts')) {
+          return Promise.resolve({
+            ok: true,
+            status: 200,
+            json: () => Promise.resolve(mockAccounts),
+          });
+        }
+        return Promise.reject(new Error('Unknown URL'));
+      });
 
     // Execute script
     eval(script);
