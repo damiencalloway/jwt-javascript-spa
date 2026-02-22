@@ -54,11 +54,42 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-        
-        	<div id="account-form">
-        
-	</div>
+                        </div>
+                        
+                        <!-- Account Creation Form -->
+                        <div class="card mb-4" id="account-form-container" style="display: none;">
+                            <div class="card-body">
+                                <h5 class="card-title" id="form-title">Add Account</h5>
+                                <form id="account-creation-form">
+                                    <input type="hidden" id="account-id">
+                                    <div class="row">
+                                        <div class="col-md-3 mb-3">
+                                            <label for="username" class="form-label">Username</label>
+                                            <input type="text" class="form-control" id="username" required>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="email" required>
+                                        </div>
+                                        <div class="col-md-2 mb-3 password-field">
+                                            <label for="password" class="form-label">Password</label>
+                                            <input type="password" class="form-control" id="password" required>
+                                        </div>
+                                        <div class="col-md-2 mb-3 password-field">
+                                            <label for="confirm-password" class="form-label">Confirm Password</label>
+                                            <input type="password" class="form-control" id="confirm-password" required>
+                                        </div>
+                                        <div class="col-md-2 d-flex align-items-end mb-3">
+                                            <button type="submit" class="btn btn-primary w-100" id="save-account-btn">Save</button>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-light mt-2" id="cancel-edit-btn" style="display: none;">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                
+                	<div id="account-form">
+                	</div>
 	<div id="accounts-list">
 	</div>
 	<script language="javascript" src="accounts.js" ></script>

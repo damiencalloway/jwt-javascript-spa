@@ -21,6 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const domainSelect = document.getElementById('domain-select');
     const accountsContainer = document.getElementById('accounts-container');
     const accountsTableBody = document.getElementById('accounts-table-body');
+    const accountFormContainer = document.getElementById('account-form-container');
+    const accountForm = document.getElementById('account-creation-form');
+    const accountIdInput = document.getElementById('account-id');
+    const usernameInput = document.getElementById('username');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirm-password');
+    const formTitle = document.getElementById('form-title');
+    const cancelEditBtn = document.getElementById('cancel-edit-btn');
     const logoutBtn = document.getElementById('logout-btn');
 
     // --- Functions ---
@@ -58,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fetchAccounts = async () => {
         if (!currentDomainId) {
             accountsContainer.style.display = 'none';
+            accountFormContainer.style.display = 'none';
             return;
         }
 
@@ -74,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const accounts = await response.json();
             renderAccounts(accounts);
+            accountFormContainer.style.display = 'block';
         } catch (error) {
             console.error('Error:', error);
         }
@@ -98,12 +109,80 @@ document.addEventListener('DOMContentLoaded', () => {
         accountsContainer.style.display = 'block';
     };
 
+    // Reset form
+    const resetForm = () => {
+        formTitle.textContent = 'Add Account';
+        accountForm.reset();
+        accountIdInput.value = '';
+        cancelEditBtn.style.display = 'none';
+        
+        // Show password fields if they were hidden during edit
+        const passwordFields = document.querySelectorAll('.password-field');
+        passwordFields.forEach(field => {
+            field.style.display = 'block';
+            field.querySelector('input').required = true;
+        });
+    };
+
     // --- Event Listeners ---
 
     // Handle domain selection change
     domainSelect.addEventListener('change', (e) => {
         currentDomainId = e.target.value;
+        resetForm();
         fetchAccounts();
+    });
+
+    // Handle account form submission
+    accountForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const id = accountIdInput.value;
+        const isUpdating = !!id;
+
+        // Password matching validation
+        if (!isUpdating) {
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                alert('Passwords do not match.');
+                return;
+            }
+        }
+
+        const accountData = {
+            account: {
+                username: usernameInput.value,
+                email: emailInput.value
+            }
+        };
+
+        if (!isUpdating) {
+            accountData.account.password = passwordInput.value;
+        }
+
+        const url = isUpdating 
+            ? `${DOMAINS_API_URL}/${currentDomainId}/accounts/${id}`
+            : `${DOMAINS_API_URL}/${currentDomainId}/accounts`;
+        
+        const method = isUpdating ? 'PUT' : 'POST';
+
+        try {
+            const response = await fetch(url, {
+                method,
+                headers: getAuthHeaders(),
+                body: JSON.stringify(accountData)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to save account.');
+            }
+
+            resetForm();
+            fetchAccounts();
+        } catch (error) {
+            console.error('Error:', error);
+            alert(error.message);
+        }
     });
 
     // Handle logout
