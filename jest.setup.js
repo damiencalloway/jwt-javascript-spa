@@ -24,3 +24,6 @@ Object.defineProperty(window, 'localStorage', {
 // Mock window.open
 delete window.open;
 window.open = jest.fn();
+
+// Mock window.scrollTo
+window.scrollTo = jest.fn();

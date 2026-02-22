@@ -185,6 +185,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Handle clicks on Edit and Delete buttons
+    accountsTableBody.addEventListener('click', async (e) => {
+        const target = e.target;
+        const id = target.dataset.id;
+
+        // Edit button clicked
+        if (target.classList.contains('edit-btn')) {
+            try {
+                const response = await fetch(`${DOMAINS_API_URL}/${currentDomainId}/accounts/${id}`, { 
+                    headers: getAuthHeaders() 
+                });
+                if (!response.ok) throw new Error('Could not fetch account data.');
+                
+                const account = await response.json();
+
+                formTitle.textContent = 'Edit Account';
+                accountIdInput.value = account.id;
+                usernameInput.value = account.username;
+                emailInput.value = account.email;
+                
+                // Hide password fields during edit
+                const passwordFields = document.querySelectorAll('.password-field');
+                passwordFields.forEach(field => {
+                    field.style.display = 'none';
+                    field.querySelector('input').required = false;
+                });
+
+                cancelEditBtn.style.display = 'inline-block';
+                window.scrollTo(0, 0);
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+    });
+
+    // Handle cancel button click
+    cancelEditBtn.addEventListener('click', resetForm);
+
     // Handle logout
     const logout = () => {
         localStorage.removeItem('jwt');
