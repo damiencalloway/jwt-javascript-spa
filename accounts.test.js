@@ -100,4 +100,46 @@ describe('accounts.js', () => {
       expect.any(Object)
     );
   });
+
+  test('Renders accounts table when domain is selected', async () => {
+    const mockAccounts = [
+      { id: 10, username: 'user1', email: 'user1@example.com' },
+      { id: 11, username: 'user2', email: 'user2@example.com' }
+    ];
+
+    // Mock domains first
+    global.fetch = jest.fn()
+      .mockImplementationOnce(() => Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve([{ id: 1, domain: 'example', tld: 'com' }]),
+      }))
+      // Mock accounts second
+      .mockImplementationOnce(() => Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockAccounts),
+      }));
+
+    // Execute script
+    eval(script);
+    
+    // Trigger DOMContentLoaded
+    const event = new Event('DOMContentLoaded');
+    document.dispatchEvent(event);
+
+    // Wait for initial domain fetch
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    const dropdown = document.getElementById('domain-select');
+    dropdown.value = '1';
+    dropdown.dispatchEvent(new Event('change'));
+
+    // Wait for fetchAccounts and rendering
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    const tableBody = document.getElementById('accounts-table-body');
+    expect(tableBody).not.toBeNull();
+    expect(tableBody.children.length).toBe(2);
+    expect(tableBody.children[0].innerHTML).toContain('user1');
+    expect(tableBody.children[0].innerHTML).toContain('user1@example.com');
+  });
 });
