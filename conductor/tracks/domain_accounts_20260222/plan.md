@@ -17,7 +17,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Account Creation (Create)' (Protocol in workflow.md) b0bbf57
 
 ## Phase 4: Account Update (Update)
-- [ ] Task: Write tests for editing an existing account.
+- [x] Task: Write tests for editing an existing account. 47b356e
 - [ ] Task: Implement the edit mode and PUT logic in `accounts.js`.
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Account Update (Update)' (Protocol in workflow.md)
 
