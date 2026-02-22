@@ -21,7 +21,7 @@
 - [x] Task: Implement the edit mode and PUT logic in `accounts.js`. e276c10
 - [x] Task: Conductor - User Manual Verification 'Phase 4: Account Update (Update)' (Protocol in workflow.md) 65e80e1
 
-## Phase 5: Account Deletion (Delete)
+## Phase 5: Account Deletion (Delete) [checkpoint: 8a0a54c]
 - [x] Task: Write tests for account deletion with confirmation. 272cfda
 - [x] Task: Implement the DELETE logic and UI interaction in `accounts.js`. 4d279b4
-- [ ] Task: Conductor - User Manual Verification 'Phase 5: Account Deletion (Delete)' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 5: Account Deletion (Delete)' (Protocol in workflow.md) 8a0a54c
