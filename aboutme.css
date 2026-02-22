@@ -1,13 +1,13 @@
 @charset "UTF-8";
 /* CSS Document */
 
-#jwt-display {
-    word-break: break-all;
-    white-space: pre-wrap;
-    max-height: 300px;
-    overflow-y: auto;
+.jwt-display {
+  max-height: 300px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
-#jwt-section {
-    margin-bottom: 3rem;
+.jwt-section {
+  margin-bottom: 3rem;
 }
