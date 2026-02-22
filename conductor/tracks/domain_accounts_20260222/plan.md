@@ -6,10 +6,10 @@
 - [x] Task: Implement Domain selection change handler to store the current `domain_id`. 741a216
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Foundation and Domain Selection' (Protocol in workflow.md) 7508cfe
 
-## Phase 2: Account Listing (Read)
+## Phase 2: Account Listing (Read) [checkpoint: 35c05fd]
 - [x] Task: Write tests for fetching and rendering accounts for a selected domain. 2778ee1
 - [x] Task: Implement `fetchAccounts` function and render the accounts table in `accounts.js`. 0a724c7
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Account Listing (Read)' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Account Listing (Read)' (Protocol in workflow.md) 35c05fd
 
 ## Phase 3: Account Creation (Create)
 - [ ] Task: Write tests for the account creation form, including password confirmation validation.
