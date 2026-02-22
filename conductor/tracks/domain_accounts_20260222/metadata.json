@@ -1,8 +1,0 @@
-{
-  "track_id": "domain_accounts_20260222",
-  "type": "feature",
-  "status": "new",
-  "created_at": "2026-02-22T10:00:00Z",
-  "updated_at": "2026-02-22T10:00:00Z",
-  "description": "Genrate CRUD for Domain Accounts. Accounts are nested within Domains as a RESTful interface. Accounts are composed of an id, domain id, username, email, and password attribute."
-}
