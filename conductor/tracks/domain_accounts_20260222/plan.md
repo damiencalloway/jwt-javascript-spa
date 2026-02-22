@@ -12,7 +12,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Account Listing (Read)' (Protocol in workflow.md) 35c05fd
 
 ## Phase 3: Account Creation (Create)
-- [ ] Task: Write tests for the account creation form, including password confirmation validation.
+- [x] Task: Write tests for the account creation form, including password confirmation validation. ffd5179
 - [ ] Task: Implement the account creation form and POST logic in `accounts.js`.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Account Creation (Create)' (Protocol in workflow.md)
 
