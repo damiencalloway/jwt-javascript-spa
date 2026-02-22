@@ -11,10 +11,10 @@
 - [x] Task: Implement `fetchAccounts` function and render the accounts table in `accounts.js`. 0a724c7
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Account Listing (Read)' (Protocol in workflow.md) 35c05fd
 
-## Phase 3: Account Creation (Create)
+## Phase 3: Account Creation (Create) [checkpoint: b0bbf57]
 - [x] Task: Write tests for the account creation form, including password confirmation validation. ffd5179
 - [x] Task: Implement the account creation form and POST logic in `accounts.js`. acff92a
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Account Creation (Create)' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Account Creation (Create)' (Protocol in workflow.md) b0bbf57
 
 ## Phase 4: Account Update (Update)
 - [ ] Task: Write tests for editing an existing account.
